@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5399676048941640515}
   - component: {fileID: 4945911698939031093}
   - component: {fileID: 7451985456521623831}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: PF_Trop_Pineapple_Mango_Splash_52oz
   m_TagString: Untagged
   m_Icon: {fileID: 0}

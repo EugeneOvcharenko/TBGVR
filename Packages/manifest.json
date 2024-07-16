@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "com.meta.xr.sdk.all": "62.0.0",
-    "com.meta.xr.sdk.sharedassets": "62.0.0",
-    "com.meta.xr.simulator.samples": "62.0.0",
+    "com.meta.xr.sdk.all": "66.0.0",
+    "com.meta.xr.sdk.sharedassets": "66.0.0",
+    "com.meta.xr.simulator.samples": "66.0.1",
     "com.meta.xr.simulator.synthenvbuilder": "60.0.1",
     "com.unity.ide.rider": "3.0.28",
     "com.unity.xr.oculus": "4.2.0",

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9728915672342210}
   - component: {fileID: 7906532810178527492}
   - component: {fileID: 6313079850335977875}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: PF_Trop_Refresher_Pineapple_Mango_46oz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
