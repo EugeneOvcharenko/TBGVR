@@ -144,8 +144,6 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 11400000, guid: 217ff63c40d46498f9174070e8aa9dac, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 5f899d64038fa4092bad3212a4dc75eb, type: 2}
-  - {fileID: 895735350875108555, guid: ac62ff3c370144b258aa00ff7a9d0a73, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -484,7 +482,7 @@ PlayerSettings:
   m_BuildTargetGraphicsJobMode: []
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: AndroidPlayer
-    m_APIs: 15000000
+    m_APIs: 0b000000
     m_Automatic: 0
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
