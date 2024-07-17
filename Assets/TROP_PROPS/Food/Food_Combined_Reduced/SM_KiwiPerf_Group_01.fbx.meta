@@ -3,7 +3,12 @@ guid: ae769975a84df7f41966c887579002fc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kiwi_group_01_SM_Food_Kiwi_LOD0SG1
+    second: {fileID: 2100000, guid: a1f77423217494645b81e55faedc90c0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
