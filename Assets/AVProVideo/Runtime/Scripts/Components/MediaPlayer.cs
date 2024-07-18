@@ -7,7 +7,6 @@ using UnityEngine.Serialization;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using File = UnityEngine.Windows.File;
 
 //-----------------------------------------------------------------------------
 // Copyright 2015-2022 RenderHeads Ltd.  All rights reserved.
