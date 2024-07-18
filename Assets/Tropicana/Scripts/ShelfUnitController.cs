@@ -1741,13 +1741,19 @@ namespace Tropicana {
             product.gameObject.AddComponent<HighlightEffect>();
             HighlightEffect highlightEffect = product.gameObject.GetComponent<HighlightEffect>();
             
-            highlightEffect.outline = 0;
+            /*highlightEffect.outline = 0;
             highlightEffect.glow = 2;
             highlightEffect.glowWidth = 0.5f;
             highlightEffect.glowQuality = HighlightPlus.QualityLevel.Highest;
             highlightEffect.glowHQColor = color;
             highlightEffect.glowBlurMethod = BlurMethod.Kawase;
-            highlightEffect.glowDownsampling = 1;
+            highlightEffect.glowDownsampling = 1;*/
+
+            highlightEffect.outline = 1;
+            highlightEffect.outlineWidth = 0.2f;
+            highlightEffect.glow = 0;
+            highlightEffect.outlineQuality = HighlightPlus.QualityLevel.High;
+            highlightEffect.outlineColor = color;
 
             highlightEffect.highlighted = true;
         }
