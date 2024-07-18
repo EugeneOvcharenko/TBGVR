@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using File = UnityEngine.Windows.File;
 
 //-----------------------------------------------------------------------------
 // Copyright 2015-2022 RenderHeads Ltd.  All rights reserved.
@@ -481,6 +483,17 @@ namespace RenderHeads.Media.AVProVideo
 
 		public bool OpenMedia(MediaPathType pathType, string path, bool autoPlay = true)
 		{
+			string[] paths = path.Split(new char[] { '/' }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (paths.Length > 1)
+			{
+				string fileName = paths[paths.Length - 1];
+				string filePath = Path.Combine(Application.persistentDataPath, fileName);
+				if( File.Exists(filePath) )
+				{
+					path = filePath;
+				}
+			}
+			
 			_mediaSource = MediaSource.Path;
 			_mediaPath.Path = path;
 			_mediaPath.PathType = pathType;
