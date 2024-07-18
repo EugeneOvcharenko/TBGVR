@@ -21,7 +21,7 @@ namespace Tropicana
 
         public void TeleportToPlantTour()
         {
-            _player.trackingSpace.position = new Vector3(1013, 996, 988);
+            _player.trackingSpace.position = new Vector3(1012.5f, 996, 987.5f);
             _player.trackingSpace.rotation = Quaternion.Euler(10, 50, 0);
         }
 
