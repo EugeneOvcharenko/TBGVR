@@ -1388,6 +1388,7 @@ namespace Tropicana {
 
             var tempMaterial = new Material(overlay.transform.GetChild(0).GetComponent<Renderer>().sharedMaterial);
             tempMaterial.SetColor("_BaseColor", color);
+            tempMaterial.SetColor("_Color", color);
             overlay.transform.GetChild(0).GetComponent<Renderer>().sharedMaterial = tempMaterial;
         }
 
@@ -1487,6 +1488,7 @@ namespace Tropicana {
                 {
                     var tempColorMaterial = new Material(topBlock.transform.GetChild(1).GetComponent<Renderer>().sharedMaterial);
                     tempColorMaterial.SetColor("_BaseColor", color);
+                    tempColorMaterial.SetColor("_Color", color);
                     topBlock.transform.GetChild(1).GetComponent<Renderer>().sharedMaterial = tempColorMaterial;
                 }
 
@@ -1553,6 +1555,7 @@ namespace Tropicana {
             {
                 var tempMaterial = new Material(overlayText.transform.GetChild(1).GetComponent<Renderer>().sharedMaterial);
                 tempMaterial.SetColor("_BaseColor", color);
+                tempMaterial.SetColor("_Color", color);
                 overlayText.transform.GetChild(1).GetComponent<Renderer>().sharedMaterial = tempMaterial;
             }
 
