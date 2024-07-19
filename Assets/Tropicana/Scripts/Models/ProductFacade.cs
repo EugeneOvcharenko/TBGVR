@@ -24,7 +24,10 @@ namespace Tropicana.Models
 
             if (_meshFilter != null)
             {
-                _collider = gameObject.AddComponent<BoxCollider>();
+                if(GetComponent<Collider>() == null)
+                {
+                    _collider = gameObject.AddComponent<BoxCollider>();
+                }
             }
             else
             {
