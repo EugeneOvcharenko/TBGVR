@@ -21,14 +21,12 @@ namespace Tropicana
 
         public void TeleportToPlantTour()
         {
-            _player.trackingSpace.position = new Vector3(1012.5f, 996, 987.5f);
-            _player.trackingSpace.rotation = Quaternion.Euler(10, 50, 0);
+            _player.trackingSpace.position = new Vector3(1000f, 996f, 1018f);
         }
 
         public void TeleportToPCW()
         {
             _player.trackingSpace.position = new Vector3(0, 0, 0);
-            _player.trackingSpace.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }
