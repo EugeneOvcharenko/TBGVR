@@ -221,7 +221,7 @@ namespace Tropicana
                     _currentVideoIndex++;
                     if(_currentVideos.Count > _currentVideoIndex)
                     {
-                        _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, _currentVideos[_currentVideoIndex].FileName, "", "", false);
+                        StartCoroutine(PlayVideoAfterPause(_currentVideos[_currentVideoIndex].FileName));
                         _playedVideos.Add(_currentVideoIndex);
                     }
                     else
@@ -504,7 +504,13 @@ namespace Tropicana
             _nextVideoindex = -1;
             _playedVideos.Add(_currentVideoIndex);
 
-            _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, _currentVideos[_currentVideoIndex].FileName, "", "", _toggleOnButton.activeSelf);
+            StartCoroutine(PlayVideoAfterPause(_currentVideos[_currentVideoIndex].FileName));
+        }
+
+        IEnumerator PlayVideoAfterPause(string uri)
+        {
+            yield return new WaitForSeconds(0.5f);
+            _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, uri, "", "", _toggleOnButton.activeSelf);
         }
 
         private void LateUpdate()
