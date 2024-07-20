@@ -173,12 +173,12 @@ namespace Tropicana
                 singleInfoNode.PopUpBody = video.PopUpBody;
                 singleInfoNode.XPosition = video.XPosition;
                 singleInfoNode.YPosition = video.YPosition;
-                infoNodes.Add(singleInfoNode);
+                //infoNodes.Add(singleInfoNode);
             }
 
             foreach(InfoNode infoNode in infoNodes)
             {
-                GameObject infoNodeGO = Instantiate(_infoNodePrefab, _plantTourVideoUI.transform);
+                GameObject infoNodeGO = Instantiate(_infoNodePrefab, _plantTourVideoUI.transform.GetChild(0).GetChild(0));
                 infoNodeGO.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = infoNode.PopUpTitle;
                 infoNodeGO.transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = infoNode.PopUpBody;
                 _infoNodes.Add(infoNodeGO, infoNode);
@@ -259,22 +259,22 @@ namespace Tropicana
 
         private void SetUpUI()
         {
-            /*if(_plantTourVideoUI == null)
+            if(_plantTourVideoUI == null)
             {
-                _volume = GameObject.Find("PPV_Indoor");
-                _plantTourVideoUI = Camera.main.transform.parent.GetComponentInChildren<Canvas>().transform.Find("PlantTourVideoUI").gameObject;
+                //_volume = GameObject.Find("PPV_Indoor");
+                _plantTourVideoUI = Camera.main.transform.Find("VideoTourUI").gameObject;
 
-                _previousButton = _plantTourVideoUI.transform.Find("PreviousButton").gameObject;
-                _nextAButton = _plantTourVideoUI.transform.Find("NextAButton").gameObject;
-                _nextBButton = _plantTourVideoUI.transform.Find("NextBButton").gameObject;
-                _pauseButton = _plantTourVideoUI.transform.Find("PauseButton").gameObject;
-                _playButton = _plantTourVideoUI.transform.Find("PlayButton").gameObject;
-                _backButton = _plantTourVideoUI.transform.Find("BackButton").gameObject;
-                _toggleOffButton = _plantTourVideoUI.transform.Find("ToggleOffButton").gameObject;
-                _toggleOnButton = _plantTourVideoUI.transform.Find("ToggleOnButton").gameObject;
-                _lookAroundIcon = _plantTourVideoUI.transform.Find("LookAround").gameObject;
-                _loadingScreen = _plantTourVideoUI.transform.Find("LoadingScreen").gameObject;
-                _quitVideoConfirmationScreen = _plantTourVideoUI.transform.Find("QuitVideoConfirmationScreen").gameObject;
+                _previousButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("PreviousButton").gameObject;
+                _nextAButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("NextAButton").gameObject;
+                _nextBButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("NextBButton").gameObject;
+                _pauseButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("PauseButton").gameObject;
+                _playButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("PlayButton").gameObject;
+                _backButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("BackButton").gameObject;
+                _toggleOffButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("ToggleOffButton").gameObject;
+                _toggleOnButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("ToggleOnButton").gameObject;
+                _lookAroundIcon = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("LookAround").gameObject;
+                _loadingScreen = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("LoadingScreen").gameObject;
+                _quitVideoConfirmationScreen = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("QuitVideoConfirmationScreen").gameObject;
                 _confirmQuitButton = _quitVideoConfirmationScreen.transform.Find("ConfirmQuitButton").gameObject;
                 _cancelQuitButton = _quitVideoConfirmationScreen.transform.Find("CancelQuitButton").gameObject;
 
@@ -297,20 +297,28 @@ namespace Tropicana
             _loadingScreen.SetActive(true);
             _quitVideoConfirmationScreen.SetActive(false);
 
-            _pauseButton.SetActive(true);
+            //_pauseButton.SetActive(true);
             _playButton.SetActive(false);
-            _toggleOffButton.SetActive(true);
+            //_toggleOffButton.SetActive(true);
             _toggleOnButton.SetActive(false);
 
             _nextAButton.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
             _nextBButton.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
             _nextAButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
             _nextBButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
-            _previousButton.GetComponent<UnityEngine.UI.Button>().interactable = false;*/
+            _previousButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
         }
 
         private void Update()
         {
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Four))
+            {
+                CloseVideoGroup();
+            }
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Three))
+            {
+                TogglePauseVideo();
+            }
             if(inPlant)
             {
                 /*if(Input.GetKeyDown(KeyCode.Escape))
@@ -432,8 +440,8 @@ namespace Tropicana
                 var videoPlayer = _mediaPlayer.GetVideoPlayer();
                 bool isPlaying = videoPlayer.Control.IsPlaying();
 
-                _pauseButton.SetActive(!isPlaying);
-                _playButton.SetActive(isPlaying);
+                //_pauseButton.SetActive(!isPlaying);
+                //_playButton.SetActive(isPlaying);
 
                 if(isPlaying)
                 {
