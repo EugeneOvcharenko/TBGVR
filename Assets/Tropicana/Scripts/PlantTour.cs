@@ -311,13 +311,21 @@ namespace Tropicana
 
         private void Update()
         {
-            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Four))
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Four)))
             {
                 CloseVideoGroup();
             }
-            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Three))
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Three)))
             {
                 TogglePauseVideo();
+            }
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x > 0.5f || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x > 0.5f))
+            {
+                ShowVideoANext();
+            }
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x < -0.5f || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x < -0.5f))
+            {
+                ShowPreviousVideoNext();
             }
             if(inPlant)
             {
