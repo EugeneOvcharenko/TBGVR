@@ -221,7 +221,7 @@ namespace Tropicana
                     _currentVideoIndex++;
                     if(_currentVideos.Count > _currentVideoIndex)
                     {
-                        _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, _currentVideos[_currentVideoIndex].FileName, "", "", false);
+                        StartCoroutine(PlayVideoAfterPause(_currentVideos[_currentVideoIndex].FileName));
                         _playedVideos.Add(_currentVideoIndex);
                     }
                     else
@@ -311,13 +311,21 @@ namespace Tropicana
 
         private void Update()
         {
-            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Four))
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Four)))
             {
                 CloseVideoGroup();
             }
-            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Three))
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Three)))
             {
                 TogglePauseVideo();
+            }
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x > 0.5f || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x > 0.5f))
+            {
+                ShowVideoANext();
+            }
+            if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x < -0.5f || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x < -0.5f))
+            {
+                ShowPreviousVideoNext();
             }
             if(inPlant)
             {
@@ -504,7 +512,13 @@ namespace Tropicana
             _nextVideoindex = -1;
             _playedVideos.Add(_currentVideoIndex);
 
-            _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, _currentVideos[_currentVideoIndex].FileName, "", "", _toggleOnButton.activeSelf);
+            StartCoroutine(PlayVideoAfterPause(_currentVideos[_currentVideoIndex].FileName));
+        }
+
+        IEnumerator PlayVideoAfterPause(string uri)
+        {
+            yield return new WaitForSeconds(0.5f);
+            _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, uri, "", "", _toggleOnButton.activeSelf);
         }
 
         private void LateUpdate()
