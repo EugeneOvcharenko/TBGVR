@@ -143,6 +143,8 @@ namespace Tropicana {
 
         private int numProductsPerFrame = 0;
         private int numProducts = 0;
+        
+        [SerializeField] GameObject testGrayscale;
 
         private void OnDrawGizmosSelected()
         {
@@ -347,6 +349,12 @@ namespace Tropicana {
 
         private void Update()
         {
+            if (testGrayscale != null)
+            {
+                GrayscaleProduct(testGrayscale);
+                testGrayscale = null;
+            }
+            
             if(initWhenProductsLoaded)
             {
                 if(ProductsProvider.Instance.productsLoaded)
@@ -980,14 +988,14 @@ namespace Tropicana {
                     {
                         if(!_selectedTopProducts.Contains(product.gameObject))
                         {
-                            //GrayscaleProduct(product.gameObject);
+                            GrayscaleProduct(product.gameObject);
                         }
                     }
                     else if(shelfUnitState == ShelfUnitState.Innovations)
                     {
                         if(!_selectedInnovations.Contains(product.gameObject))
                         {
-                            //GrayscaleProduct(product.gameObject);
+                            GrayscaleProduct(product.gameObject);
                         }
                     }
                 }
@@ -1816,7 +1824,7 @@ namespace Tropicana {
             }
             else if(_shelfUnitState == ShelfUnitState.TopProducts || _shelfUnitState == ShelfUnitState.Innovations)
             {
-                //GrayscaleProduct(product.gameObject);
+                GrayscaleProduct(product.gameObject);
             }
         }
 
