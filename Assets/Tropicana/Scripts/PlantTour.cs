@@ -15,6 +15,8 @@ namespace Tropicana
         [SerializeField] private Transform _buttonsParent;
         [SerializeField] private GameObject _infoNodePrefab;
         [SerializeField] private GameObject _videoTourGroupButtonPrefab;
+        [SerializeField] private GameObject _videoTourUI;
+        [SerializeField] private Transform _centralEyePoint;
 
         private TropicanaMediaPlayer _mediaPlayer;
 
@@ -47,6 +49,9 @@ namespace Tropicana
         private GameObject _cancelQuitButton;
 
         private bool inPlant = false;
+        
+        [SerializeField] private bool _playSecondTour = false;
+        [SerializeField] private string _secondTourName = "";
 
         private Dictionary<GameObject, InfoNode> _infoNodes = new Dictionary<GameObject, InfoNode>();
 
@@ -68,7 +73,12 @@ namespace Tropicana
             }
 
             for(int i=0; i<groups.Count; i++)
-            { 
+            {
+                if (i == 2)
+                {
+                    _secondTourName = groups[i];
+                }
+                
                 GameObject groupButton = groupButton = Instantiate(_videoTourGroupButtonPrefab, _buttonsParent);
 
                 string groupName = groups[i];
@@ -128,6 +138,8 @@ namespace Tropicana
 
                 _currentVideoIndex = 0;
                 _playedVideos.Add(0);
+                _plantTourVideoUI.transform.parent = null;
+                _plantTourVideoUI.transform.rotation = Quaternion.identity;
                 _mediaPlayer.PlayMedia(Tropicana.Models.MediaType.Video360, _currentVideos[_currentVideoIndex].FileName, "", "", false);
             }
         }
@@ -173,7 +185,7 @@ namespace Tropicana
                 singleInfoNode.PopUpBody = video.PopUpBody;
                 singleInfoNode.XPosition = video.XPosition;
                 singleInfoNode.YPosition = video.YPosition;
-                //infoNodes.Add(singleInfoNode);
+                infoNodes.Add(singleInfoNode);
             }
 
             foreach(InfoNode infoNode in infoNodes)
@@ -262,7 +274,7 @@ namespace Tropicana
             if(_plantTourVideoUI == null)
             {
                 //_volume = GameObject.Find("PPV_Indoor");
-                _plantTourVideoUI = Camera.main.transform.Find("VideoTourUI").gameObject;
+                _plantTourVideoUI = _videoTourUI;//GameObject.Find("VideoTourUI").gameObject;
 
                 _previousButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("PreviousButton").gameObject;
                 _nextAButton = _plantTourVideoUI.transform.GetChild(0).GetChild(0).Find("NextAButton").gameObject;
@@ -311,6 +323,12 @@ namespace Tropicana
 
         private void Update()
         {
+            if (_playSecondTour)
+            {
+                _playSecondTour = false;
+                PlayGroup(_secondTourName);
+            }
+            
             if(_plantTourVideoUI != null && _plantTourVideoUI.activeSelf && (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Four)))
             {
                 CloseVideoGroup();
@@ -383,19 +401,19 @@ namespace Tropicana
             {
                 InfoNode infoNode = _infoNodes[infoNodeGO];
                 Vector3 direction = Quaternion.Euler(-infoNode.YPosition, infoNode.XPosition, 0) * Vector3.forward;
-                if(Vector3.Dot(Camera.main.transform.forward, direction) > 0)
-                {
+                // if(Vector3.Dot(Camera.main.transform.forward, direction) > 0)
+                // {
                     Vector3 worldPosition = Camera.main.transform.position + direction * 10;
                     Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
                     RectTransform rectTransform = infoNodeGO.GetComponent<RectTransform>();
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(Camera.main.transform.parent.GetChild(2) as RectTransform, screenPosition, Camera.main, out Vector2 localPoint);
                     rectTransform.localPosition = localPoint;
                     infoNodeGO.SetActive(true);
-                }
-                else
-                {
-                    infoNodeGO.SetActive(false);
-                }
+                // }
+                // else
+                // {
+                    // infoNodeGO.SetActive(false);
+                // }
             }
         }
 
@@ -418,6 +436,10 @@ namespace Tropicana
             _plantTourVideoUI?.SetActive(false);
             _volume?.SetActive(true);
             _inVideo = false;
+
+            _plantTourVideoUI.transform.parent = _centralEyePoint;
+            _plantTourVideoUI.transform.localPosition = Vector3.zero;
+            _plantTourVideoUI.transform.localRotation = Quaternion.identity;
         }
 
         private void ToggleConfirmQuit()

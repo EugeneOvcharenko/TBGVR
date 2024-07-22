@@ -21,7 +21,8 @@ namespace Tropicana
 
         public void TeleportToPlantTour()
         {
-            _player.trackingSpace.position = new Vector3(1000f, 996f, 1018f);
+            // _player.trackingSpace.position = new Vector3(1000f, 996f, 1018f);
+            _player.trackingSpace.position = new Vector3(1000f, 996f, 981f);
         }
 
         public void TeleportToPCW()

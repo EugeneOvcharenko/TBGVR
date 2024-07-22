@@ -1244,6 +1244,13 @@ namespace Tropicana {
                             continue;
                         }
                         GameObject product = Instantiate(resource, rowParents[j]) as GameObject;
+
+                        MeshRenderer[] mrs = product.GetComponentsInChildren<MeshRenderer>();
+                        foreach(MeshRenderer mr in mrs)
+                        {
+                            mr.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+                        }
+                        
                         product.transform.localRotation = Quaternion.Euler(new Vector3(_productXRot, _productYRot, 0));
 
                         int layer = LayerMask.NameToLayer("DynamicProductBack");
